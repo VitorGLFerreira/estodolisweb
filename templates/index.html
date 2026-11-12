@@ -56,7 +56,11 @@
 
             {# botões aqui #}
         </li>
-        {# lista vazia aqui #}
+        </li>
+      {% else %}
+      <li class="bg-white rounded-xl shadow p-6 text-center text-slate-500">
+        Nenhuma tarefa por aqui. Que tal adicionar a primeira?
+      </li>
         {% endfor %}
     </ul>
 
