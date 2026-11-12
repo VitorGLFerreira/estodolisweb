@@ -1,5 +1,1 @@
-
-body {
-    background-color: lime;
-    font-family: "Tahoma";
-}
+@import 'tailwindcss'
