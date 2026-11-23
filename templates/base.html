@@ -14,6 +14,18 @@
         </div>
     </header>
 
+    {% with mensagens = get_flashed_messages() %}
+        {% if mensagens %}
+            <div class="max-w-5xl mx-auto px-4 pt-4 space-y-2">
+                {% for m in mensagens %}
+                    <p class="bg-indigo-100 text-indigo-800 rounded-lg px-3 py-2">{{ m }}</p>
+                {% endfor %}
+            </div>
+        {%  endif %}
+    {%  endwith %}
+
+    
+    {% include "_mensagens.html" %}
     {% block content %}
     {% endblock %}
     

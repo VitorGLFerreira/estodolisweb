@@ -40,7 +40,23 @@
                 value="{{ dados.Data_prazo }}" required
                 class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-indigo-400">
 
-            {# prioridade aqui #}
+            <label for="Prioridade" class="block font-medium">Prioridade</label>
+            <select id="Prioridade" name="Prioridade" required 
+                class="w-full border rounded-lg p-3 bg-white">
+                <option value="ALTA"
+                    {% if dados.Prioridade == "ALTA" %}selected{% endif %}>Alta</option>
+                <option value="MEDIA"
+                    {% if dados.Prioridade == "MEDIA" %}selected{% endif %}>Média</option>
+                <option value="BAIXA"
+                    {% if dados.Prioridade == "BAIXA" %}selected{% endif %}>Baixa</option>
+            </select>
+
+            <div class="flex gap-2">
+                <button type="submit" class="flex-1 bg-green-600 text-white rounded-lg p-3 font-semibold">Salvar
+                </button>
+                <a href="/" class="flex-1 text-center rounded-lg p-3 bg-slate-200">Cancelar</a>
+            </div>
+
         </form>
     </main>
 {% endblock %}

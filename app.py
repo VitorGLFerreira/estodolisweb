@@ -11,6 +11,11 @@ ADMIN_SENHA = "141414"
 
 CATEGORIAS = ["Escola", "Trabalho", "Projetos", "Pessoal", "Saúde", "Outros"]
 
+def validar_tarefa(Nome, Descricao, Categoria, Prazo, Prioridade):
+    erros = []
+    if len(Nome) < 5 or len(Nome) > 30 or Nome.isdigit():
+        erros.append("Nome: de 5 a 30 caracteres, não só números.")
+
 @app.route("/") # HomePage - Página Inicial
 def index():
     if "login" not in session:
@@ -55,14 +60,25 @@ def adicionar() :
     if request.method == "GET":
         return render_template("formulario.html", categorias=CATEGORIAS, dados={}, erros=[])
 
-    return render_template(
-    "formulario.html",
-    categorias=CATEGORIAS,
-    dados={},
-    erros=[]
-)
+    # POST: ler o que veio do formulário 
+    Nome_tarefa = request.form.get("Nome_tarefa", "").strip()
+    Descricao = request.form.get("Descricao", "").strip()
+    Categoria = request.form.get("Categoria", "").strip()
+    Data_prazo = request.form.get("Data_prazo", "")
+    Prioridade = request.form.get("Prioridade", "")
 
-    # ler o POST aqui
+    # validar os campos aqui
+
+    if inserir_tarefa(Nome_tarefa, Descricao, Categoria, Data_prazo, Prioridade):
+        flash("Tarefa adicionada com sucesso!")
+    else:
+        flash("Não foi possível salvar. Confira a conexão com o banco.")
+    return redirect("/")
+
+
+
+    
+
 
 
 if __name__ == "__main__":
