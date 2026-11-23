@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Tarefa | EsToDoList{% endblock %}
+{%  block content %}
+    <main class="max-w-xl mx-auto px-4 py-8">
+        <form action="/adicionar" method="post"
+                class="bg-white rounded-xl shadow p-6 space-y-4">
+            <h2 class="text-xl font-bold">Nova tarefa</h2>
+            {% if erros %}
+                <ul class="bg-red-100 text-red-700 rounded-lg px-4 py-3 space-y-1">
+                    {% for erro in erros %}
+                        <li>{{ erro }}</li>
+                    {%  endfor %}
+                </ul>
+            {% endif %}
+
+            <label for="Nome_tarefa" class="block font-medium">Nome</label>
+            <input type="text" id="Nome_tarefa" name="Nome_tarefa"
+                value="{{ dados.Nome_tarefa }}" required
+                class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-indigo-400">
+            <label for="Descricao" class="block font-medium">Descricao</label>
+            <textarea id="Descricao" name="Descricao" rows="3"
+                class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-indigo-400">{{ dados.Descricao or ""}}</textarea>
+
+            {# categoria aqu #}
+        </form>
+    </main>
+{% endblock %}

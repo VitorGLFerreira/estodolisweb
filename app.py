@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request, session, redirect
-from database import consultar_tarefas
+from datetime import date
+from flask import Flask, render_template, request, session, redirect, flash
+from database import consultar_tarefas, inserir_tarefa
 
 app = Flask(__name__)
 app.secret_key = "vitorgabriel"
@@ -7,6 +8,8 @@ app.secret_key = "vitorgabriel"
 # Dados de acesso do ADMIN
 ADMIN_EMAIL = "vithor@gmail.com"
 ADMIN_SENHA = "141414"
+
+CATEGORIAS = ["Escola", "Trabalho", "Projetos", "Pessoal", "Saúde", "Outros"]
 
 @app.route("/") # HomePage - Página Inicial
 def index():
@@ -45,6 +48,15 @@ def logout():
 @app.errorhandler(404)
 def not_found(erro):
     return render_template("erro404.html"),404
+
+# Rota que mostra o formulário
+@app.route("/adicionar", methods=["GET", "POST"])
+def adicionar() :
+    if request.method == "GET":
+        return render_template("formulario.html", categorias=CATEGORIAS, dados={}, erros=[])
+
+    # ler o POST aqui
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
