@@ -55,6 +55,13 @@ def adicionar() :
     if request.method == "GET":
         return render_template("formulario.html", categorias=CATEGORIAS, dados={}, erros=[])
 
+    return render_template(
+    "formulario.html",
+    categorias=CATEGORIAS,
+    dados={},
+    erros=[]
+)
+
     # ler o POST aqui
 
 

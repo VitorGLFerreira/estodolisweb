@@ -21,7 +21,26 @@
             <textarea id="Descricao" name="Descricao" rows="3"
                 class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-indigo-400">{{ dados.Descricao or ""}}</textarea>
 
-            {# categoria aqu #}
+            <label for="Categoria" class="block font-medium">Categoria</label>
+
+            <select id="Categoria" name="Categoria" required
+                class="w-full border rounded-lg p-3 bg-white">
+
+                {% for c in categorias %}
+                    <option value="{{ c }}"
+                        {% if dados.Categoria == c %}selected{% endif %}>
+                        {{ c }}
+                    </option>
+                {% endfor %}
+
+            </select>
+
+            <label for="Data_prazo" class="block font-medium">Prazo</label>
+            <input type="date" id="Data_prazo"
+                value="{{ dados.Data_prazo }}" required
+                class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-indigo-400">
+
+            {# prioridade aqui #}
         </form>
     </main>
 {% endblock %}
