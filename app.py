@@ -1,9 +1,9 @@
 from datetime import date
 from flask import Flask, render_template, request, session, redirect, flash
-from database import consultar_tarefas, inserir_tarefa
+from database import (consultar_tarefas, inserir_tarefa, buscar_tarefa, concluir_tarefa, apagar_tarefa)
 
 app = Flask(__name__)
-app.secret_key = "vitorgabriel"
+app.secret_key = "vitorgabriel" #Chave secreta para a sessãok do Flask
 
 # Dados de acesso do ADMIN
 ADMIN_EMAIL = "vithor@gmail.com"
@@ -93,10 +93,28 @@ def adicionar() :
     return redirect("/")
 
 
+@app.route("/concluir/<int:idtarefa>", methods=["POST"])
+def concluir(idtarefa):
+    tarefa = buscar_tarefa(idtarefa)
+    if tarefa is None or tarefa["status"] == "Concluída":
+        flash("Não há o que concluir nessa tarefa.")
+    elif concluir_tarefa(idtarefa):
+        flash("Tarefa concluída. Bom trabalho!")
+    else:
+        flash("Não foi possível concluir a tarefa.")
+    return redirect("/")
 
-    
-
-
+@app.route("/excluir/<int:idtarefa>", methods=["GET", "POST"])
+def excluir(idtarefa):
+    tarefa = buscar_tarefa(idtarefa)
+    if tarefa is None:
+        flash("Tarefa não encontrada.")
+        return redirect("/")
+    if request.method == "GET":
+        return render_template("confirmar_exclusao.html", tarefa=tarefa)
+    apagar_tarefa(idtarefa)
+    flash("Tarefa excluída.")
+    return redirect("/")
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

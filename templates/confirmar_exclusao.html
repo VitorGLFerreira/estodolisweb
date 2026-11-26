@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{%  block content %}
+    <form action="/excluir/{{ tarefa.idtarefa }}" method="post"
+        class="max-w-sm mx-auto mt-10 bg-white rounded-b-xl shadow p-6 spae-y-4">
+        <h2 class="text-xl font-bold">Excluir esta tarefa?</h2>
+        <p>{{ tarefa.nome_tarefa }}</p>
+        <button type="submit"
+            class="w-full bg-red-600 text-white rounded-lg p-3">Sim, excluir</button>
+        <a href="/" class="block text-center underline">Cancelar</a>
+    </form>
+{% endblock %}

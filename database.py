@@ -94,7 +94,7 @@ def concluir_tarefa(idtarefa):
         return False
 
     try:
-        sql = "UPDATE tarefa SET status = 'Concluida' WHERE idTarefa = %s"
+        sql = "UPDATE tarefa SET status = 'Concluída' WHERE idTarefa = %s"
         cursor.execute(sql,(idtarefa,)) # , obrigatoria para informar q é tupla
         conexao.commit() # Confirma a alterção nos dados
 
@@ -156,7 +156,7 @@ def apagar_tarefa(idtarefa):
         
         conexao.commit() # Confirma a exclusão
 
-        return True
+        return True    
 
     except Error as erro:
         print(f"ERRO! Falha ao excluir a tarefa: {erro}")
@@ -165,3 +165,21 @@ def apagar_tarefa(idtarefa):
     finally:
         cursor.close() # Encerra o cursor
         conexao.close() # Encerra a conexao
+
+def buscar_tarefa(idtarefa):
+    conexao, cursor = conectar()
+    if conexao is None:
+         return None
+    try:
+        sql = """
+            SELECT idTarefa AS idtarefa, dataPrazo AS data_prazo, nomeTarefa AS nome_tarefa, status, descricao, categoria, prioridade
+            FROM tarefa WHERE idTarefa = %s
+            """
+        cursor.execute(sql, (idtarefa,))
+        return cursor.fetchone() # Um dicionaio, ou None se não existir
+    except Error as erro:
+        print(f"ERRO! Falha ao buscar a tarefa: {erro}")
+        return None
+    finally:
+        cursor.close()
+        conexao.close()
