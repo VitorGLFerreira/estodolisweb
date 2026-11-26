@@ -17,6 +17,7 @@
             <input type="text" id="Nome_tarefa" name="Nome_tarefa"
                 value="{{ dados.Nome_tarefa }}" required
                 class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-indigo-400">
+                
             <label for="Descricao" class="block font-medium">Descricao</label>
             <textarea id="Descricao" name="Descricao" rows="3"
                 class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-indigo-400">{{ dados.Descricao or ""}}</textarea>
@@ -36,7 +37,7 @@
             </select>
 
             <label for="Data_prazo" class="block font-medium">Prazo</label>
-            <input type="date" id="Data_prazo"
+            <input type="date" id="Data_prazo" name="Data_prazo"
                 value="{{ dados.Data_prazo }}" required
                 class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-indigo-400">
 
